@@ -1,0 +1,36 @@
+/*Write a simple bootstrap css for the assignment with grid and form*/
+
+body {
+    background-color: rgb(19, 137, 240);
+}
+
+.container {
+    background-color:rgb(19, 137, 240);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgb(0, 0, 0);
+    padding: 20px;
+    border: 3px solid rgb(0, 0, 0);
+}
+
+.row {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.col-md-4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 50px;
+}
+
+.form-control {
+    margin-top: 10px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;    
+}                                                                               
