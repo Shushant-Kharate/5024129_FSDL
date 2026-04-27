@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="studentApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Record App</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #5b86e5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .student {
+            background: #f4f6f8;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card" ng-controller="studentController">
+
+    <h2>📚 Student Record</h2>
+
+    <!-- Name -->
+    <input type="text" ng-model="name" placeholder="Enter Name">
+    <div class="error">{{nameError}}</div>
+
+    <!-- Age -->
+    <input type="number" ng-model="age" placeholder="Enter Age">
+    <div class="error">{{ageError}}</div>
+
+    <!-- Email -->
+    <input type="text" ng-model="email" placeholder="Enter Email">
+    <div class="error">{{emailError}}</div>
+
+    <!-- Button -->
+    <button ng-click="addStudent()">Add Student</button>
+
+    <!-- List -->
+    <div class="student" ng-repeat="s in students">
+        {{s.name}} - {{s.age}} yrs - {{s.email}}
+    </div>
+
+</div>
+
+<script>
+    var app = angular.module("studentApp", []);
+
+    app.controller("studentController", function($scope) {
+
+        $scope.students = [];
+
+        $scope.addStudent = function() {
+
+            // Reset errors
+            $scope.nameError = "";
+            $scope.ageError = "";
+            $scope.emailError = "";
+
+            // Name validation
+            if (!$scope.name) {
+                $scope.nameError = "Name is required!";
+            }
+
+            // Age validation
+            if (!$scope.age) {
+                $scope.ageError = "Age is required!";
+            } else if ($scope.age < 1) {
+                $scope.ageError = "Enter valid age!";
+            }
+
+            // Email validation (must contain @)
+            if (!$scope.email) {
+                $scope.emailError = "Email is required!";
+            } else if (!$scope.email.includes("@")) {
+                $scope.emailError = "Email must contain '@'";
+            }
+
+            // If all valid → add student
+            if ($scope.name && $scope.age > 0 && $scope.email.includes("@")) {
+
+                $scope.students.push({
+                    name: $scope.name,
+                    age: $scope.age,
+                    email: $scope.email
+                });
+
+                // Clear inputs
+                $scope.name = "";
+                $scope.age = "";
+                $scope.email = "";
+            }
+        };
+
+    });
+</script>
+
+</body>
+</html>
